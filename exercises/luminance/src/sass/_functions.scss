@@ -3,12 +3,12 @@
   @if (round($exponent) != $exponent) {
     @return exp($exponent * ln($number));
   }
-    
+
   $value: 1;
-  
+
   @if $exponent > 0 {
     @for $i from 1 through $exponent {
-     $value: $value * $number;
+      $value: $value * $number;
     }
   } @else if $exponent < 0 {
     @for $i from 1 through -$exponent {
@@ -25,21 +25,21 @@
   @if $value == 0 {
     @return $result;
   }
-  
+
   @for $index from 1 through $value {
     $result: $result * $index;
   }
-  
+
   @return $result;
 }
 
 @function summation($iteratee, $input, $initial: 0, $limit: 100) {
   $sum: 0;
-  
+
   @for $index from $initial to $limit {
     $sum: $sum + call($iteratee, $input, $index);
   }
-  
+
   @return $sum;
 }
 
@@ -48,7 +48,7 @@
 }
 
 @function exp($value) {
-  @return summation('exp-maclaurin', $value, 0, 100);
+  @return summation(get-function("exp-maclaurin"), $value, 0, 100);
 }
 
 @function ln-maclaurin($x, $n) {
@@ -58,10 +58,15 @@
 @function ln($value) {
   $ten-exp: 1;
   $ln-ten: 2.30258509;
-  
+
   @while ($value > pow(10, $ten-exp)) {
     $ten-exp: $ten-exp + 1;
   }
-  
-  @return summation(ln-maclaurin, $value / pow(10, $ten-exp), 1, 100) + $ten-exp * $ln-ten;
+
+  @return summation(
+      get-function("ln-maclaurin"),
+      $value / pow(10, $ten-exp),
+      1,
+      100
+    ) + $ten-exp * $ln-ten;
 }

@@ -5,7 +5,9 @@
   background: #eee;
 
   .sidebar,
-  .main { padding: 10px; }
+  .main {
+    padding: 10px;
+  }
 
   .main {
     margin-left: 220px;
@@ -16,5 +18,17 @@
   .sidebar {
     width: 200px;
     float: left;
+  }
+  // place it in the bottom because it's overwriting some styles.
+  &.right-nav {
+    .sidebar {
+      float: right;
+    }
+    .main {
+      margin-left: 0;
+      margin-right: 220px;
+      border-left: none;
+      border-right: 2px solid #333;
+    }
   }
 }

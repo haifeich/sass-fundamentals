@@ -1,5 +1,5 @@
 body {
-    h1 {
+  h1 {
     color: #c69;
   }
 }
@@ -10,4 +10,37 @@ body {
   border-width: 1px;
   line-height: 20px;
   border-radius: 2px;
+  $primary-color: #c46;
+  $secondary-color: #edbcc8;
+  &:disabled {
+    opacity: 0.5;
+    .btn__price {
+      background: #aaa;
+    }
+  }
+  &.btn--mode-primary {
+    background: $primary-color;
+    color: white;
+  }
+  &.btn--mode-secondary {
+    background: $secondary-color;
+    color: black;
+  }
+  &__price {
+    background: #008000;
+    padding: 1px 3px;
+  }
+}
+
+@mixin danger {
+  background: red;
+  color: white;
+}
+.btn-danger {
+  @include danger;
+  padding: 2px;
+}
+.alert-danger {
+  @include danger;
+  width: 100%;
 }

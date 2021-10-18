@@ -4,23 +4,17 @@
   }
   .btn-secondary {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, $rotate),
-      $darkenpct)
+      darken(adjust-hue($primary-color, $rotate), $darkenpct)
     );
   }
   .btn-other {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, 360deg - $rotate),
-      $darkenpct)
+      darken(adjust-hue($primary-color, 360deg - $rotate), $darkenpct)
     );
   }
   .btn-other2 {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, 180deg),
-      $darkenpct)
+      darken(adjust-hue($primary-color, 180deg), $darkenpct)
     );
   }
 }
@@ -30,5 +24,8 @@
   border-color: darken($color, 20%);
   &:hover:not(:disabled) {
     background-color: lighten(saturate($color, 20%), 10%);
+  }
+  @if lightness($color) < 70% {
+    color: white;
   }
 }

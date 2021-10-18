@@ -6,30 +6,32 @@
   }
   .btn-secondary {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, $rotate),
-      $darkenpct)
+      darken(adjust-hue($primary-color, $rotate), $darkenpct)
     );
   }
   .btn-other {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, 360deg - $rotate),
-      $darkenpct)
+      darken(adjust-hue($primary-color, 360deg - $rotate), $darkenpct)
     );
   }
   .btn-other2 {
     @include button-base(
-      darken(
-        adjust-hue($primary-color, 180deg),
-      $darkenpct)
+      darken(adjust-hue($primary-color, 180deg), $darkenpct)
     );
   }
 }
-
+@function linearRgb($c) {
+  @if $c <= 0.04045 {
+    @return $c/12.92;
+  } @else {
+    @return pow((($c + 0.055)/ 1.055), 2.4);
+  }
+}
 @function luminance($color) {
-  /* REPLACE THIS WITH YOUR REAL FUNCTION */
-  @return 0.5;
+  $r: linearRgb(red($color) / 255);
+  $g: linearRgb(green($color) / 255);
+  $b: linearRgb(blue($color) / 255);
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
 }
 
 $white_luminance: luminance(white);
@@ -41,7 +43,7 @@ $white_luminance: luminance(white);
    * luminance(white): #{luminance(white)}
    */
   @if abs(luminance($color) - $white_luminance) > 0.7 {
-  // @if lightness($color) < 70 {
+    // @if lightness($color) < 70 {
     color: white;
   }
   &:hover:not(:disabled) {

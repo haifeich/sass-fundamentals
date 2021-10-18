@@ -1,0 +1,21 @@
+@for $i from 1 through 5 {
+  $dimention: (
+    "m": "margin",
+    "p": "padding",
+  );
+  $direction: (
+    "t": "top",
+    "r": "right",
+    "b": "bottom",
+    "l": "left",
+  );
+  @each $dim in $dimention {
+    @each $dir in $direction {
+      .#{nth($dim,
+      1)}-#{nth($dir,
+      1)}-#{$i*5} {
+        #{nth($dim,2)}-#{nth($dir,2)}: #{$i * 5px};
+      }
+    }
+  }
+}
